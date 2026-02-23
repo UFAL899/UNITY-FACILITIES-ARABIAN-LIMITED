@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premier Construct | Industrial Excellence</title>
+  <!-- SEO friendly -->
+  <meta name="description" content="Premier Construct - global leader in construction, oil pipeline, and industrial maintenance. High-end corporate portfolio.">
+  <!-- Google Fonts: Montserrat + Poppins (clean, premium) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ========== RESET & VARIABLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --deep-dark: #0b0f16;
+      --dark-surface: #141a24;
+      --card-bg: rgba(20, 28, 40, 0.8);
+      --gold-primary: #c9a45b;
+      --gold-light: #e5c687;
+      --blue-accent: #2f6f9f;
+      --blue-deep: #1e4b6e;
+      --text-light: #f0f4fa;
+      --text-dim: #b0c0d0;
+      --glass-border: rgba(255, 215, 140, 0.15);
+      --shadow-heavy: 0 20px 35px -8px rgba(0,0,0,0.7);
+      --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --gradient-gold: linear-gradient(145deg, #c9a45b, #a07d40);
+      --gradient-blue: linear-gradient(135deg, #1e4b6e, #2f6f9f);
+      --gradient-dark: linear-gradient(145deg, #141a24, #0b0f16);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--deep-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    /* ========== LOADING ANIMATION ========== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--deep-dark);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+    .loader {
+      width: 70px;
+      height: 70px;
+      border: 5px solid rgba(201, 164, 91, 0.2);
+      border-top: 5px solid var(--gold-primary);
+      border-radius: 50%;
+      animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+      box-shadow: 0 0 15px var(--gold-primary);
+    }
+    @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+    /* ========== STICKY NAV (GLASS) ========== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 15, 22, 0.75);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      padding: 1rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--gradient-gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    /* ========== GENERAL REUSABLE ========== */
+    section { padding: 5rem 8%; }
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 70px;
+      height: 4px;
+      background: var(--gradient-gold);
+      border-radius: 4px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: transparent;
+      border: 2px solid var(--gold-primary);
+      color: var(--gold-primary);
+      margin-right: 1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-primary {
+      background: var(--gradient-gold);
+      color: var(--deep-dark);
+      border: none;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 20px #c9a45b, 0 0 40px #a07d40;
+      transform: scale(1.05);
+    }
+    .btn-outline:hover {
+      background: var(--gold-primary);
+      color: var(--deep-dark);
+      box-shadow: 0 0 20px #c9a45b;
+    }
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: url('https://images.pexels.com/photos/1654917/pexels-photo-1654917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') center/cover fixed;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,15,22,0.9) 20%, rgba(31,44,60,0.7) 80%);
+      z-index: -1;
+    }
+    .hero-content {
+      max-width: 800px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff8e7, var(--gold-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .hero-tagline {
+      font-size: 1.5rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      border-left: 5px solid var(--gold-primary);
+      padding-left: 1.2rem;
+    }
+    /* ========== ABOUT (COUNTERS) ========== */
+    .about-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+      flex: 1;
+    }
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .glass-card:hover { transform: translateY(-8px); box-shadow: 0 30px 45px rgba(0,0,0,0.6); }
+    /* ========== SERVICES CARDS ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: rgba(20, 28, 40, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(201, 164, 91, 0.2);
+      border-radius: 28px;
+      padding: 2.5rem 1.8rem;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 25px var(--gold-primary), 0 10px 30px black;
+    }
+    .service-card i {
+      font-size: 3rem;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .service-card ul { list-style: none; }
+    .service-card li { margin: 0.5rem 0; color: var(--text-dim); display: flex; align-items: center; gap: 0.6rem; }
+    .service-card li i { font-size: 0.9rem; color: var(--gold-primary); }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(201,164,91,0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s;
+      z-index: -1;
+    }
+    .service-card:hover::before { opacity: 1; }
+    /* ========== PROJECT GALLERY ========== */
+    .filter-btns {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 0.6rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--gold-primary);
+      color: var(--deep-dark);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11,15,22,0.95), transparent);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    /* ========== WHY CHOOSE US (progress) ========== */
+    .progress-item { margin: 1.5rem 0; }
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #2a3440;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-gold);
+      transition: width 1.5s ease;
+    }
+    /* ========== TESTIMONIALS SLIDER ========== */
+    .testimonials-slider {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1rem 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-primary) #1e2632;
+    }
+    .testimonial-card {
+      min-width: 320px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 2rem;
+      scroll-snap-align: start;
+      border: 1px solid rgba(201,164,91,0.2);
+    }
+    .stars i { color: var(--gold-primary); margin-right: 3px; }
+    /* ========== CONTACT ========== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #2f3a47;
+      border-radius: 16px;
+      color: white;
+      margin-bottom: 1.2rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-form button {
+      background: var(--gradient-gold);
+      border: none;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+    }
+    .contact-form button:hover { box-shadow: 0 0 25px gold; }
+    .map {
+      border-radius: 28px;
+      overflow: hidden;
+      filter: grayscale(0.6) sepia(0.2);
+    }
+    /* ========== FOOTER ========== */
+    footer {
+      background: #0a0e14;
+      padding: 3rem 8% 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+    }
+    .social-icons i {
+      font-size: 1.8rem;
+      margin-right: 1.5rem;
+      color: var(--text-dim);
+      transition: all 0.3s;
+    }
+    .social-icons i:hover { color: var(--gold-primary); transform: translateY(-5px); }
+    .to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background: var(--gold-primary);
+      color: #0b0f16;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      opacity: 0.8;
+      transition: 0.3s;
+      z-index: 99;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .to-top.show { opacity: 0.8; pointer-events: auto; }
+    .to-top:hover { opacity: 1; transform: scale(1.1); }
+    /* ========== PARALLAX & ANIMATIONS ========== */
+    .parallax { background-attachment: fixed; }
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 1s all ease;
+    }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) { 
+      .nav-links { display: none; } 
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- PRELOADER -->
+  <div id="preloader"><div class="loader"></div></div>
+
+  <!-- STICKY NAV -->
+  <nav class="navbar">
+    <span class="logo">PREMIER<span style="color:var(--gold-light);">CONSTRUCT</span></span>
+    <div class="nav-links">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Building Industrial <br>Futures</h1>
+      <div class="hero-tagline">Engineering excellence • Oil & Construction • Global leaders</div>
+      <div>
+        <a href="#projects" class="btn btn-primary">View Projects <i class="fas fa-arrow-right"></i></a>
+        <a href="#contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT COMPANY -->
+  <section id="about" data-reveal>
+    <h2 class="section-title">About Premier</h2>
+    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+      <div style="flex:2">
+        <p class="text-dim" style="font-size:1.2rem">With over three decades of industrial command, Premier Construct delivers turnkey solutions in heavy construction, oil & gas, and advanced maintenance. Our mission is to engineer infrastructure that lasts generations.</p>
+        <p style="margin-top:1rem; color:var(--gold-light)"><strong>Vision:</strong> To be the benchmark of safety and innovation across continents.</p>
+      </div>
+      <div style="flex:1" class="about-stats">
+        <div class="stat-item"><span class="stat-number counter" data-target="35">0</span><p>Years of excellence</p></div>
+        <div class="stat-item"><span class="stat-number counter" data-target="280">0</span><p>Major projects</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES section with premium cards -->
+  <section id="services" class="parallax" style="background: #0f1620;" data-reveal>
+    <h2 class="section-title">Our Expertise</h2>
+    <div class="services-grid">
+      <!-- Construction works card -->
+      <div class="service-card"><i class="fas fa-hard-hat"></i><h3>Construction Works</h3><ul><li><i class="fas fa-check-circle"></i>Building Construction</li><li><i class="fas fa-check-circle"></i>Structural Works</li><li><i class="fas fa-check-circle"></i>Civil Engineering</li></ul></div>
+      <!-- Oil Pipeline card -->
+      <div class="service-card"><i class="fas fa-oil-can"></i><h3>Oil Pipeline Works</h3><ul><li><i class="fas fa-check-circle"></i>Pipeline Installation</li><li><i class="fas fa-check-circle"></i>Welding & Fabrication</li><li><i class="fas fa-check-circle"></i>Pressure Testing</li></ul></div>
+      <!-- Maintenance card -->
+      <div class="service-card"><i class="fas fa-tools"></i><h3>Maintenance Services</h3><ul><li><i class="fas fa-check-circle"></i>Mechanical Maintenance</li><li><i class="fas fa-check-circle"></i>Electrical Maintenance</li><li><i class="fas fa-check-circle"></i>Industrial Equipment Repair</li></ul></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS GALLERY with filters -->
+  <section id="projects" data-reveal>
+    <h2 class="section-title">Recent Projects</h2>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="construction">Construction</button>
+      <button class="filter-btn" data-filter="pipeline">Pipeline</button>
+      <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- items will be populated via JS, but we put base structure in HTML for clarity -->
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US + progress bars -->
+  <section style="background: #10161e;" data-reveal>
+    <h2 class="section-title">Why Choose Us</h2>
+    <div class="progress-item"><span>Safety & Compliance 98%</span><div class="progress-bar"><div class="progress-fill" data-progress="98"></div></div></div>
+    <div class="progress-item"><span>Project On-Time Delivery 94%</span><div class="progress-bar"><div class="progress-fill" data-progress="94"></div></div></div>
+    <div class="progress-item"><span>Client Satisfaction 96%</span><div class="progress-bar"><div class="progress-fill" data-progress="96"></div></div></div>
+  </section>
+
+  <!-- TESTIMONIALS sliding -->
+  <section data-reveal>
+    <h2 class="section-title">Client Voices</h2>
+    <div class="testimonials-slider">
+      <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Flawless execution on our LNG terminal. Safety and precision above all."</p><h4>— Aramco Tech</h4></div>
+      <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Premier handled the entire cross-country pipeline, challenging terrain made simple."</p><h4>— PetroGlobal</h4></div>
+      <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p>"Rapid maintenance response, minimized our downtime. Highly recommend."</p><h4>— Northern Refineries</h4></div>
+    </div>
+  </section>
+
+  <!-- CONTACT + MAP -->
+  <section id="contact" data-reveal>
+    <h2 class="section-title">Reach out</h2>
+    <div class="contact-grid">
+      <div class="contact-form glass-card">
+        <form id="contactForm"><input type="text" placeholder="Your name" required><input type="email" placeholder="Email" required><textarea rows="4" placeholder="Message"></textarea><button type="submit" class="btn btn-primary">Send message</button></form>
+      </div>
+      <div><div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9664674301596!2d-73.985291684594!3d40.74881797932775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117467%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1652916201348!5m2!1sen!2sus" width="100%" height="300" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe></div><p style="margin:1rem 0"><i class="fas fa-map-pin gold"></i> 200 Industrial Ave, Houston, TX 77001 <br> <i class="fas fa-phone"></i> +1 (800) 555-0199 <br> <i class="fas fa-envelope"></i> info@premierconstruct.com</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div><span class="logo" style="font-size:1.8rem;">PREMIER</span><p>Engineering tomorrow’s infrastructure.</p></div>
+      <div><h4>Quick links</h4><p><a href="#services" style="color:var(--text-dim);">Services</a><br><a href="#projects" style="color:var(--text-dim);">Projects</a></p></div>
+      <div class="social-icons"><i class="fab fa-linkedin"></i><i class="fab fa-twitter"></i><i class="fab fa-youtube"></i></div>
+    </div>
+    <hr style="border-color:#2a3440; margin:2rem 0;">
+    <p style="text-align:center">© 2025 Premier Construct. All rights reserved.</p>
+  </footer>
+
+  <!-- scroll to top button -->
+  <a href="#" class="to-top" id="toTop"><i class="fas fa-chevron-up"></i></a>
+
+  <script>
+    (function() {
+      // preloader
+      window.addEventListener('load', () => { document.getElementById('preloader').style.opacity = '0'; setTimeout(()=>{ document.getElementById('preloader').style.display = 'none'; }, 600); });
+
+      // counter animation (scroll reveal + count)
+      const counters = document.querySelectorAll('.counter');
+      const speed = 200;
+      const animateCounters = () => {
+        counters.forEach(counter => {
+          const update = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText;
+            const increment = target / speed;
+            if(current < target) { counter.innerText = Math.ceil(current + increment); setTimeout(update, 15); } 
+            else { counter.innerText = target; }
+          }; update();
+        });
+      };
+      // progress bars animation
+      const fillBars = document.querySelectorAll('.progress-fill');
+      const animateProgress = () => {
+        fillBars.forEach(bar => { let val = bar.getAttribute('data-progress'); bar.style.width = val + '%'; });
+      };
+
+      // scroll reveal (simple)
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            if(entry.target.querySelector('.counter')) animateCounters();   // if about visible
+            if(entry.target.querySelector('.progress-fill')) animateProgress();
+          }
+        });
+      }, { threshold: 0.15 });
+      revealElements.forEach(el => observer.observe(el));
+
+      // gallery project items (dynamically load for filtering demonstration)
+      const projects = [
+        { cat: 'construction', title: 'High-Rise Tower', img: 'https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { cat: 'construction', title: 'Bridge Deck', img: 'https://images.pexels.com/photos/399281/pexels-photo-399281.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { cat: 'pipeline', title: 'Cross-Country Pipeline', img: 'https://images.pexels.com/photos/257588/pexels-photo-257588.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { cat: 'pipeline', title: 'Compressor Station', img: 'https://images.pexels.com/photos/236307/pexels-photo-236307.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { cat: 'maintenance', title: 'Refinery Overhaul', img: 'https://images.pexels.com/photos/162539/industrietechnik-refinery-industrie-anlage-162539.jpeg?auto=compress&cs=tinysrgb&w=600' },
+        { cat: 'maintenance', title: 'Turbine Repair', img: 'https://images.pexels.com/photos/257775/pexels-photo-257775.jpeg?auto=compress&cs=tinysrgb&w=600' }
+      ];
+      const gallery = document.getElementById('gallery-grid');
+      function renderGallery(filter='all') {
+        let html = '';
+        projects.filter(p => filter==='all' || p.cat===filter).forEach(p => {
+          html += `<div class="gallery-item"><img src="${p.img}" alt="${p.title}" loading="lazy"><div class="gallery-overlay"><h4>${p.title}</h4><span>${p.cat}</span></div></div>`;
+        });
+        gallery.innerHTML = html;
+      }
+      renderGallery('all');
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          renderGallery(this.dataset.filter);
+        });
+      });
+
+      // scroll to top button
+      const toTop = document.getElementById('toTop');
+      window.addEventListener('scroll', ()=> { if(window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show'); });
+
+      // contact form prevent default
+      document.getElementById('contactForm').addEventListener('submit', (e) => { e.preventDefault(); alert('Thank you. Premium team will respond shortly.'); });
+
+      // subtle parallax effect (already via background fixed)
+      // also star rating animation : css transition fine.
+
+      // manually trigger counters if about already visible on load
+      if(document.querySelector('#about').getBoundingClientRect().top < window.innerHeight) { animateCounters(); animateProgress(); }
+    })();
+  </script>
+  <!-- additional glassmorphism effects & button glow are in css -->
+</body>
+</html>

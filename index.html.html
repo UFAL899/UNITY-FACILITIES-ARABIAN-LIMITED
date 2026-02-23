@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNITY FACILITIES ARABIAN LIMITED | Engineering Excellence</title>
+  <!-- Google Fonts: Poppins + Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- RESET & VARIABLES ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --deep-navy: #0A1926;
+      --gold: #C5A572;
+      --gold-light: #E5C99B;
+      --white-soft: #F0F4F8;
+      --glass-bg: rgba(10, 25, 38, 0.65);
+      --glass-border: rgba(197, 165, 114, 0.25);
+      --shadow-dark: 0 15px 35px -10px rgba(0,0,0,0.6);
+      --shadow-gold: 0 10px 30px -8px rgba(197,165,114,0.3);
+      --font-primary: 'Poppins', sans-serif;
+      --font-secondary: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--deep-navy);
+      color: var(--white-soft);
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      cursor: none; /* custom cursor */
+    }
+
+    /* custom cursor */
+    .custom-cursor {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      box-shadow: 0 0 15px var(--gold);
+    }
+
+    .custom-cursor.hover {
+      width: 40px; height: 40px;
+      background: rgba(197,165,114,0.2);
+      border: 1px solid var(--gold);
+    }
+
+    a, button, .card, .filter-btn, .logo, .back-to-top {
+      cursor: none;
+    }
+
+    /* ----- PRELOADER ----- */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--deep-navy);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.8s cubic-bezier(0.77,0,0.18,1);
+    }
+    .preloader-logo {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--gold);
+      animation: pulseGlow 1.6s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 5px var(--gold); opacity: 0.7; }
+      100% { text-shadow: 0 0 35px var(--gold), 0 0 15px #ffd700; opacity: 1; }
+    }
+
+    /* ----- NAVBAR (sticky transparent) ----- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(10, 25, 38, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(10, 25, 38, 0.9);
+      padding: 0.8rem 5%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #fff 30%, var(--gold) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      color: var(--white-soft);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.25s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ----- HERO SECTION (full screen video) ----- */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    #hero-video {
+      position: absolute;
+      top: 50%; left: 50%;
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.4) contrast(1.2);
+      z-index: -2;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(0,0,0,0.3), var(--deep-navy) 90%);
+      z-index: -1;
+    }
+    .hero-content {
+      max-width: 900px;
+      padding: 2rem;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #fff, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 2.5rem;
+      color: #e0e7f0;
+    }
+    .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 2px solid transparent;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--deep-navy);
+      box-shadow: 0 8px 20px rgba(197,165,114,0.3);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--gold);
+      border-color: var(--gold);
+      transform: translateY(-5px);
+    }
+    .btn-outline {
+      border: 2px solid var(--gold);
+      color: var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--deep-navy);
+      transform: translateY(-5px);
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      color: var(--gold);
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0);} 40%{transform:translateX(-50%) translateY(-20px);} 60%{transform:translateX(-50%) translateY(-10px);} }
+
+    /* ----- SECTIONS general ----- */
+    section {
+      padding: 100px 8%;
+      position: relative;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--gold);
+    }
+
+    /* ----- ABOUT (counters) ----- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+    .mission-vision {
+      display: flex;
+      gap: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 25px;
+      padding: 2rem;
+      border: 1px solid var(--glass-border);
+    }
+    .mission, .vision {
+      flex: 1;
+    }
+    .counters {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .counter-item {
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      padding: 1.5rem 1rem;
+      border-radius: 20px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .counter-num {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ----- SERVICES (3D hover cards) ----- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: rgba(20, 35, 50, 0.7);
+      backdrop-filter: blur(6px);
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(197,165,114,0.1);
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    .service-card:hover {
+      transform: translateY(-10px) rotateX(2deg) rotateY(2deg) scale(1.02);
+      box-shadow: 0 30px 40px -10px var(--gold), 0 0 25px rgba(197,165,114,0.5);
+      border-color: var(--gold);
+    }
+    .service-icon {
+      font-size: 3rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    /* ----- FILTERABLE PORTFOLIO ----- */
+    .filter-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--gold);
+      color: var(--deep-navy);
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .portfolio-item {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 250px;
+      position: relative;
+      transition: 0.3s;
+      background-size: cover;
+      background-position: center;
+    }
+    .portfolio-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 30px -5px var(--gold);
+    }
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,25,38,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+    /* modal popup (simple) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      max-width: 600px;
+      background: var(--deep-navy);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 2px solid var(--gold);
+    }
+
+    /* expertise timeline and bars */
+    .expertise-flex {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .timeline {
+      flex: 1;
+      border-left: 3px solid var(--gold);
+      padding-left: 2rem;
+    }
+    .timeline-item {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      width: 15px; height: 15px;
+      background: var(--gold);
+      position: absolute;
+      left: -2.4rem; top: 5px;
+      border-radius: 50%;
+    }
+    .progress-bars {
+      flex: 1;
+    }
+    .progress-item {
+      margin: 1.5rem 0;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #2a3a4a;
+      border-radius: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), #f5d98f);
+      border-radius: 10px;
+      width: 0;
+      transition: width 1.5s;
+    }
+
+    /* clients carousel */
+    .carousel {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 2rem 0;
+    }
+    .carousel-track {
+      display: inline-block;
+      animation: scroll 30s linear infinite;
+    }
+    .carousel-track img {
+      height: 60px;
+      margin: 0 3rem;
+      filter: brightness(0.8) grayscale(0.5);
+      transition: 0.3s;
+    }
+    .carousel-track img:hover { filter: brightness(1) grayscale(0); }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .floating-form {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      padding: 2.5rem;
+      border-radius: 30px;
+      border: 1px solid var(--glass-border);
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .input-group input, .input-group textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #456;
+      padding: 10px 0;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+    .input-group label {
+      position: absolute;
+      left: 0; top: 10px;
+      color: #aaa;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+    .input-group input:focus ~ label,
+    .input-group input:valid ~ label,
+    .input-group textarea:focus ~ label,
+    .input-group textarea:valid ~ label {
+      top: -15px;
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+    .map-container {
+      border-radius: 30px;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+    }
+
+    /* floating whatsapp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      background: #25D366;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: 0.3s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px; left: 30px;
+      background: var(--gold);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--deep-navy);
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: 0.3s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid, .expertise-flex { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .counters { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .counters { grid-template-columns: 1fr; }
+    }
+
+    /* reveal animation (scroll) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="preloader-logo">UNITY</div>
+  </div>
+
+  <!-- STICKY NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="logo">UNITY FACILITIES</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <video autoplay muted loop playsinline id="hero-video" poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600">
+      <source src="https://cdn.pixabay.com/vimeo/342199014/construction-1822.mp4?width=1280&hash=0b6d2c5a7b9a7db7b7c0c7c8f9b3c0d1e2f3a4b5" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="reveal">Engineering Excellence Across Saudi Arabia</h1>
+      <p class="reveal">Construction · Oil & Gas · Maintenance · Manpower Supply</p>
+      <div class="cta-group reveal">
+        <a href="#portfolio" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+    <div class="scroll-down"><i class="fas fa-chevron-down"></i></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title reveal">About UNITY</h2>
+    <div class="about-grid">
+      <div>
+        <p class="reveal">UNITY FACILITIES ARABIAN LIMITED, based in Al Khobar, Dammam, is a premier engineering partner delivering turnkey solutions for industrial and infrastructure projects across the Kingdom. We blend international standards with deep local expertise.</p>
+      </div>
+      <div class="mission-vision reveal">
+        <div class="mission"><i class="fas fa-bullseye" style="color:var(--gold);"></i><h3>Mission</h3><p>Excellence through precision, safety, and innovation.</p></div>
+        <div class="vision"><i class="fas fa-eye" style="color:var(--gold);"></i><h3>Vision</h3><p>To be the most trusted engineering name in the Gulf.</p></div>
+      </div>
+    </div>
+    <div class="counters">
+      <div class="counter-item reveal"><div class="counter-num" data-target="12">0</div><span>Years Exp.</span></div>
+      <div class="counter-item reveal"><div class="counter-num" data-target="87">0</div><span>Projects</span></div>
+      <div class="counter-item reveal"><div class="counter-num" data-target="340">0</div><span>Workforce</span></div>
+      <div class="counter-item reveal"><div class="counter-num" data-target="98">0</div><span>Satisfaction %</span></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2 class="section-title reveal">Our Expertise</h2>
+    <div class="services-grid">
+      <div class="service-card reveal"><i class="fas fa-hard-hat service-icon"></i><h3>Construction & Civil</h3><p>Industrial buildings, infrastructure & civil works.</p></div>
+      <div class="service-card reveal"><i class="fas fa-oil-can service-icon"></i><h3>Oil & Gas Pipeline</h3><p>Cross-country pipelines, testing & integrity.</p></div>
+      <div class="service-card reveal"><i class="fas fa-tools service-icon"></i><h3>Industrial Maintenance</h3><p>Preventive & shutdown maintenance.</p></div>
+      <div class="service-card reveal"><i class="fas fa-bolt service-icon"></i><h3>Electrical & Mechanical</h3><p>HVAC, power, instrumentation.</p></div>
+      <div class="service-card reveal"><i class="fas fa-building service-icon"></i><h3>Facility Management</h3><p>Integrated FM services & manpower supply.</p></div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO (filter gallery) -->
+  <section id="portfolio">
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="filter-controls reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="construction">Construction</button>
+      <button class="filter-btn" data-filter="oilgas">Oil & Gas</button>
+      <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+    </div>
+    <div class="portfolio-grid reveal" id="portfolio-grid">
+      <!-- filled from js -->
+    </div>
+  </section>
+
+  <!-- MODAL for portfolio -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" style="float:right;font-size:2rem;cursor:pointer;">&times;</span>
+      <h3 id="modal-title">Project Title</h3>
+      <p id="modal-desc">Description</p>
+    </div>
+  </div>
+
+  <!-- EXPERTISE & COMPLIANCE -->
+  <section id="expertise">
+    <h2 class="section-title reveal">Expertise & compliance</h2>
+    <div class="expertise-flex">
+      <div class="timeline reveal">
+        <div class="timeline-item"><strong>2012</strong> – Founded in Al Khobar</div>
+        <div class="timeline-item"><strong>2015</strong> – ISO 9001 & 45001 certified</div>
+        <div class="timeline-item"><strong>2018</strong> – First major pipeline project</div>
+        <div class="timeline-item"><strong>2024</strong> – 100+ safety milestones</div>
+      </div>
+      <div class="progress-bars reveal">
+        <div class="progress-item">Safety standards <div class="progress-bar"><div class="progress-fill" data-width="98"></div></div></div>
+        <div class="progress-item">Quality assurance <div class="progress-bar"><div class="progress-fill" data-width="95"></div></div></div>
+        <div class="progress-item">Project delivery <div class="progress-bar"><div class="progress-fill" data-width="92"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS CAROUSEL -->
+  <section>
+    <h2 class="section-title reveal">Trusted Partners</h2>
+    <div class="carousel reveal">
+      <div class="carousel-track">
+        <!-- duplicate for seamless loop -->
+        <img src="https://via.placeholder.com/120x60?text=ARAMCO" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=SABIC" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=Halliburton" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=Schlumberger" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=BAE" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=ARAMCO" alt="client">
+        <img src="https://via.placeholder.com/120x60?text=SABIC" alt="client">
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title reveal">Get in touch</h2>
+    <div class="contact-grid">
+      <div class="floating-form reveal">
+        <form id="contactForm">
+          <div class="input-group"><input type="text" id="name" required><label for="name">Full name</label></div>
+          <div class="input-group"><input type="email" id="email" required><label for="email">Email</label></div>
+          <div class="input-group"><textarea id="message" rows="3" required></textarea><label for="message">Message</label></div>
+          <button type="submit" class="btn btn-primary">Send message</button>
+          <p id="form-feedback" style="margin-top:1rem;"></p>
+        </form>
+        <div style="margin-top:2rem;">
+          <p><i class="fas fa-phone-alt" style="color:var(--gold);"></i> 0530345679</p>
+          <p><i class="fas fa-envelope" style="color:var(--gold);"></i> info@ufa.com.sa</p>
+          <p><i class="fas fa-map-marker-alt" style="color:var(--gold);"></i> Al Janubiyah Dist, Dammam, SA</p>
+        </div>
+      </div>
+      <div class="map-container reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114964.53925987672!2d50.046523849999996!3d26.42093775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e31f8b5f7b7c7b7%3A0x8e8f5d5a5d5e5d5!2sDammam%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1650000000000" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- floating buttons -->
+  <a href="https://wa.me/966530345679" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
+
+  <script>
+    (function() {
+      // Preloader
+      window.addEventListener('load', () => {
+        document.getElementById('preloader').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('preloader').style.display = 'none';
+        }, 900);
+      });
+
+      // Custom cursor
+      const cursor = document.querySelector('.custom-cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      document.querySelectorAll('a, button, .card, .filter-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // Navbar scroll
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 100) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      });
+
+      // Counter animation (Intersection Observer)
+      const counters = document.querySelectorAll('.counter-num');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = +el.getAttribute('data-target');
+            let count = 0;
+            const update = setInterval(() => {
+              if (count < target) {
+                count += Math.ceil(target / 50);
+                if (count > target) count = target;
+                el.innerText = count;
+              } else clearInterval(update);
+            }, 30);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+      }, { threshold: 0.1 });
+      reveals.forEach(r => revealObs.observe(r));
+
+      // Progress bars animation
+      const progressBars = document.querySelectorAll('.progress-fill');
+      const progressObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting) {
+            e.target.style.width = e.target.getAttribute('data-width') + '%';
+          }
+        });
+      }, { threshold: 0.5 });
+      progressBars.forEach(p => progressObs.observe(p));
+
+      // Portfolio filterable + modal
+      const projects = [
+        { title: 'Jubail Industrial Plant', category: 'construction', desc: 'Civil works for ethylene plant.', img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600' },
+        { title: 'Master Gas Pipeline', category: 'oilgas', desc: '60km pipeline installation.', img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600' },
+        { title: 'Refinery Maintenance', category: 'maintenance', desc: 'Shutdown & turnaround.', img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600' },
+        { title: 'NEOM Camp Facility', category: 'construction', desc: 'Modular buildings & MEP.', img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600' },
+        { title: 'Gas Oil Separation', category: 'oilgas', desc: 'Pipeline & instrumentation.', img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600' },
+        { title: 'Power Plant Maintenance', category: 'maintenance', desc: 'Turbine & auxiliaries.', img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600' },
+      ];
+
+      const grid = document.getElementById('portfolio-grid');
+      function render(filter = 'all') {
+        grid.innerHTML = '';
+        const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+        filtered.forEach(p => {
+          const item = document.createElement('div');
+          item.className = 'portfolio-item';
+          item.style.backgroundImage = `url(${p.img})`;
+          item.innerHTML = `<div class="portfolio-overlay"><span><i class="fas fa-search"></i> ${p.title}</span></div>`;
+          item.addEventListener('click', () => openModal(p.title, p.desc));
+          grid.appendChild(item);
+        });
+      }
+      render();
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          render(this.dataset.filter);
+        });
+      });
+
+      const modal = document.getElementById('modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDesc = document.getElementById('modal-desc');
+      function openModal(title, desc) { modalTitle.innerText = title; modalDesc.innerText = desc; modal.style.display = 'flex'; }
+      document.getElementById('close-modal').onclick = () => modal.style.display = 'none';
+      window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+
+      // Form validation
+      document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const msg = document.getElementById('message').value.trim();
+        const feedback = document.getElementById('form-feedback');
+        if (!name || !email || !msg) feedback.innerText = 'All fields required.';
+        else if (!email.includes('@')) feedback.innerText = 'Invalid email.';
+        else { feedback.innerText = 'Message sent (demo).'; e.target.reset(); }
+      });
+
+      // Back to top
+      const toTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 600) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      });
+      toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // smooth scroll for nav
+      document.querySelectorAll('.nav-links a, .btn').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const hash = link.getAttribute('href');
+          if (hash && hash.startsWith('#')) {
+            e.preventDefault();
+            document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
